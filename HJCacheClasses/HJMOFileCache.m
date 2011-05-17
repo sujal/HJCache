@@ -147,7 +147,9 @@
 	NSString* path = [self readyFilePathForOid:oid];
 	NSError* e;
 	NSDictionary* dict = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&e];	NSNumber* size = [dict objectForKey:NSFileSize];
-	[[NSFileManager	defaultManager] removeItemAtPath:path error:&err];
+    if(![path isEqualToString:readyPath]) {
+        [[NSFileManager	defaultManager] removeItemAtPath:path error:&err];
+    }
 	if (err==nil) {
 		fileCount--;
 		byteCount = byteCount - size.unsignedIntegerValue;
